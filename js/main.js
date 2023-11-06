@@ -1,10 +1,8 @@
-console.log('main.js loaded')
-
 const dataTable = document.querySelector('.js-data')
 const sortBy = document.querySelectorAll('.js-sort-by')
 
 let dataJson = []
-let sorted = []
+let lastSort = ''
 
 sortBy.forEach((e) => {
 	e.addEventListener('click', () => {
@@ -12,14 +10,38 @@ sortBy.forEach((e) => {
 
 		if (!sortData) return
 
-		dataJson = dataJson.sort((a, b) => {
-			return (a.sortData < b.sortData) ? -1 : 1
-		})
+		// reverse already sorted array
+		if (sortData === lastSort) {
+			console.log('sorting by REVERSE')
 
-		console.log('sortData | ', sortData)
-		// console.log('dataJson | ', dataJson)
+			dataJson = dataJson.reverse()
 
-		console.log(JSON.parse(JSON.stringify(dataJson)))
+			updateTable()
+
+			return false
+		}
+
+		if (sortData === 'id') {
+			dataJson = dataJson.sort((a, b) => {
+				return (a.id - b.id)
+			})
+
+			console.log('sorting by ID')
+		} else if (sortData === 'value') {
+			dataJson = dataJson.sort((a, b) => {
+				return (a.value - b.value)
+			})
+
+			console.log('sorting by VALUE')
+		} else if (sortData === 'name') {
+			const collator = new Intl.Collator('en', {numeric: true, sensitivity: 'base'})
+
+			dataJson = dataJson.sort((a, b) => collator.compare(a.name, b.name))
+
+			console.log('sorting by NAME')
+		}
+
+		lastSort = sortData
 
 		updateTable()
 	})
@@ -47,5 +69,3 @@ const getData = () => {
 }
 
 getData()
-
-console.log('end...')
