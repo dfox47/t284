@@ -16,8 +16,8 @@
 <div class="wrapper">
 	<h1>Test 284</h1>
 
-	<form class="form_search js-form-search" action="/" method="post">
-		<input class="form_search__input" type="text" name="search" placeholder="Фильтр">
+	<form class="form_search js-search" action="/" method="post">
+		<input class="form_search__input js-search-input" type="text" name="search" placeholder="Фильтр">
 
 		<label class="form_search__submit">
 			<input type="submit">

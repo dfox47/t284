@@ -2,6 +2,7 @@ const specialTable = () => {
 	const dataTable = document.querySelector('.js-data')
 	const sortBy = document.querySelectorAll('.js-sort-by')
 	const $pagination = document.querySelector('.js-pagination')
+	const $searchInput = document.querySelector('.js-search-input')
 
 	if (!dataTable && !sortBy && !$pagination) return
 
@@ -9,7 +10,8 @@ const specialTable = () => {
 	const collator = new Intl.Collator('en', {numeric: true, sensitivity: 'base'})
 
 	let dataJson = []
-	let lastSort = ''
+	let lastSort
+	let sortedJson
 
 	// sorting
 	sortBy.forEach((e) => {
@@ -30,22 +32,22 @@ const specialTable = () => {
 			}
 
 			if (sortData === 'id') {
-				dataJson = dataJson.sort((a, b) => {
+				sortedJson = dataJson.sort((a, b) => {
 					return (a.id - b.id)
 				})
 			} else if (sortData === 'value') {
-				dataJson = dataJson.sort((a, b) => {
+				sortedJson = dataJson.sort((a, b) => {
 					return (a.value - b.value)
 				})
 			} else if (sortData === 'name') {
-				dataJson = dataJson.sort((a, b) => collator.compare(a.name, b.name))
+				sortedJson = dataJson.sort((a, b) => collator.compare(a.name, b.name))
 			}
 
 			console.log('sorting by | ', sortData)
 
 			lastSort = sortData
 
-			updateTable()
+			updateTable(sortedJson)
 		})
 	})
 
@@ -57,11 +59,11 @@ const specialTable = () => {
 			.then((data) => {
 				dataJson = data
 
-				updateTable()
+				updateTable(dataJson)
 			})
 	}
 
-	const updateTable = () => {
+	const updateTable = (jsonData) => {
 		// reset table
 		dataTable.innerHTML = ''
 
@@ -74,7 +76,7 @@ const specialTable = () => {
 		let pages = []
 
 		// id | name | value
-		dataJson.forEach((e) => {
+		jsonData.forEach((e) => {
 			if (itemCount % 5 === 0) {
 				itemPage++
 
@@ -97,7 +99,7 @@ const specialTable = () => {
 		})
 	}
 
-	const paginationClick = () => {
+	const paginationChange = () => {
 		$pagination.addEventListener('click', (e) => {
 			if (e.target.classList.contains('js-page')) {
 				const selectedPage = e.target.dataset.id
@@ -125,9 +127,23 @@ const specialTable = () => {
 		})
 	}
 
-	getData()
+	const searchChange = () => {
+		let searchResult
 
-	paginationClick()
+		const searchVal = $searchInput.value.toLowerCase()
+
+		searchResult = dataJson.filter((e) => {
+				return e.name.toLowerCase().indexOf(searchVal) > -1
+			}
+		)
+
+		updateTable(searchResult)
+	}
+
+	$searchInput.addEventListener('input', searchChange)
+
+	getData()
+	paginationChange()
 }
 
 specialTable()
