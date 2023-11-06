@@ -79,6 +79,29 @@ body {
 	}
 }
 
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin: 10px 0;
+	width: 100%;
+
+	&__link {
+		background-color: $c_border;
+		color: #000;
+		display: block;
+		font-weight: 700;
+		margin: 0 4px;
+		padding: 4px 10px;
+		text-decoration: none;
+		transition: $transition;
+
+		&:hover,
+		&.active {
+			background-color: $c_hover;
+		}
+	}
+}
+
 .wrapper {
 	margin: 0 auto;
 	max-width: 600px;

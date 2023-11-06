@@ -1,9 +1,9 @@
 const specialTable = () => {
 	const dataTable = document.querySelector('.js-data')
 	const sortBy = document.querySelectorAll('.js-sort-by')
-	const pagination = document.querySelectorAll('.js-pagination')
+	const $pagination = document.querySelector('.js-pagination')
 
-	if (!dataTable && !sortBy && !pagination) return
+	if (!dataTable && !sortBy && !$pagination) return
 
 	// sort by string and number pattern
 	const collator = new Intl.Collator('en', {numeric: true, sensitivity: 'base'})
@@ -65,25 +65,35 @@ const specialTable = () => {
 		// reset table
 		dataTable.innerHTML = ''
 
+		// reset pagination
+		$pagination.innerHTML = ''
+
 		let itemCount = 0
-		let page = 0
+		let itemPage = 0
 		let isActive = 'active'
+		let pages = []
 
 		// id | name | value
 		dataJson.forEach((e) => {
 			if (itemCount % 5 === 0) {
-				page++
+				itemPage++
+
+				pages.push(itemPage)
 			}
 
 			// show items only on 1st page
-			isActive = (page > 1) ? '' : 'active'
+			isActive = (itemPage > 1) ? '' : 'active'
 
-			dataTable.innerHTML += '<tr class="data_table__row js-table-row ' + isActive + '" data-page="' + page + '"><td>' + e.id + '</td><td>' + e.name + '</td><td>' + e.value + '</td></tr>'
+			dataTable.innerHTML += '<tr class="data_table__row js-table-row ' + isActive + '" data-page="' + itemPage + '"><td>' + e.id + '</td><td>' + e.name + '</td><td>' + e.value + '</td></tr>'
 
 			itemCount++
+		})
 
-			console.log('itemCount | ', itemCount)
-			console.log('page | ', page)
+		// pagination
+		pages.forEach((e) => {
+			isActive = (e > 1) ? '' : 'active'
+
+			$pagination.innerHTML += '<a href="javascript:void(0);" class="pagination__link js-page ' + isActive + '" data-id="' + e + '">' + e + '</a>'
 		})
 	}
 
