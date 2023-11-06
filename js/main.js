@@ -1,6 +1,8 @@
 const dataTable = document.querySelector('.js-data')
 const sortBy = document.querySelectorAll('.js-sort-by')
 
+const collator = new Intl.Collator('en', {numeric: true, sensitivity: 'base'})
+
 let dataJson = []
 let lastSort = ''
 
@@ -25,21 +27,15 @@ sortBy.forEach((e) => {
 			dataJson = dataJson.sort((a, b) => {
 				return (a.id - b.id)
 			})
-
-			console.log('sorting by ID')
 		} else if (sortData === 'value') {
 			dataJson = dataJson.sort((a, b) => {
 				return (a.value - b.value)
 			})
-
-			console.log('sorting by VALUE')
 		} else if (sortData === 'name') {
-			const collator = new Intl.Collator('en', {numeric: true, sensitivity: 'base'})
-
 			dataJson = dataJson.sort((a, b) => collator.compare(a.name, b.name))
-
-			console.log('sorting by NAME')
 		}
+
+		console.log('sorting by | ', sortData)
 
 		lastSort = sortData
 
