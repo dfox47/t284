@@ -1,9 +1,11 @@
 const specialTable = () => {
 	const dataTable = document.querySelector('.js-data')
 	const sortBy = document.querySelectorAll('.js-sort-by')
+	const pagination = document.querySelectorAll('.js-pagination')
 
-	if (dataTable && sortBy) return
+	if (!dataTable && !sortBy && !pagination) return
 
+	// sort by string and number pattern
 	const collator = new Intl.Collator('en', {numeric: true, sensitivity: 'base'})
 
 	let dataJson = []
@@ -60,11 +62,28 @@ const specialTable = () => {
 	}
 
 	const updateTable = () => {
+		// reset table
 		dataTable.innerHTML = ''
+
+		let itemCount = 0
+		let page = 0
+		let isActive = 'active'
 
 		// id | name | value
 		dataJson.forEach((e) => {
-			dataTable.innerHTML += '<tr><td>' + e.id + '</td><td>' + e.name + '</td><td>' + e.value + '</td></tr>'
+			if (itemCount % 5 === 0) {
+				page++
+			}
+
+			// show items only on 1st page
+			isActive = (page > 1) ? '' : 'active'
+
+			dataTable.innerHTML += '<tr class="data_table__row js-table-row ' + isActive + '" data-page="' + page + '"><td>' + e.id + '</td><td>' + e.name + '</td><td>' + e.value + '</td></tr>'
+
+			itemCount++
+
+			console.log('itemCount | ', itemCount)
+			console.log('page | ', page)
 		})
 	}
 

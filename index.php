@@ -36,6 +36,8 @@
 
 		<tbody class="js-data"></tbody>
 	</table>
+
+	<div class="js-pagination"></div>
 </div>
 
 <script src="js/main.js?v<?= (date("YmdHis")); ?>"></script>

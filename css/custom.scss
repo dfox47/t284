@@ -42,6 +42,14 @@ body {
 			//border-left: none;
 		}
 	}
+
+	&__row {
+		display: none;
+
+		&.active {
+			display: table-row;
+		}
+	}
 }
 
 .form_search {
