@@ -97,7 +97,37 @@ const specialTable = () => {
 		})
 	}
 
+	const paginationClick = () => {
+		$pagination.addEventListener('click', (e) => {
+			if (e.target.classList.contains('js-page')) {
+				const selectedPage = e.target.dataset.id
+
+				dataTable.querySelectorAll('.js-table-row').forEach((tableRow) => {
+					if (selectedPage === tableRow.dataset.page) {
+						tableRow.classList.add('active')
+
+						return
+					}
+
+					tableRow.classList.remove('active')
+				})
+
+				$pagination.querySelectorAll('.js-page').forEach((item) => {
+					if (selectedPage === item.dataset.id) {
+						item.classList.add('active')
+
+						return
+					}
+
+					item.classList.remove('active')
+				})
+			}
+		})
+	}
+
 	getData()
+
+	paginationClick()
 }
 
 specialTable()
