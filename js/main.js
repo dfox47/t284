@@ -1,6 +1,15 @@
 console.log('main.js loaded')
 
 const dataTable = document.querySelector('.js-data')
+const sortBy = document.querySelectorAll('.js-sort-by')
+
+sortBy.forEach((e) => {
+	e.addEventListener('click', () => {
+		const sortData = e.dataset.sort
+
+		console.log('sortData | ', sortData)
+	})
+})
 
 const getData = () => {
 	fetch("js/data.json")

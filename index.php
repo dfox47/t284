@@ -28,9 +28,9 @@
 	<table class="data_table">
 		<thead>
 		<tr>
-			<td>Id</td>
-			<td>Name</td>
-			<td>Value</td>
+			<td class="js-sort-by" data-sort="id">Id</td>
+			<td class="js-sort-by" data-sort="name">Name</td>
+			<td class="js-sort-by" data-sort="value">Value</td>
 		</tr>
 		</thead>
 

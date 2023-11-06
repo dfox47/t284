@@ -13,12 +13,35 @@
 
 body {
 	background-color: #fff;
+	font-family: Arial, Helvetica, serif;
+	font-size: 16px;
 	padding: 100px 0;
 }
 
 .data_table {
-	display: table;
+	border-collapse: separate;
+	border-left: 1px solid $c_border;
+	border-spacing: 0;
+	border-top: 1px solid $c_border;
 	width: 100%;
+
+	thead {
+		background-color: $c_primary;
+		cursor: pointer;
+		font-weight: 700;
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	td {
+		border-bottom: 1px solid $c_border;
+		border-right: 1px solid $c_border;
+		padding: 4px;
+
+		&:last-child {
+			//border-left: none;
+		}
+	}
 }
 
 .form_search {
