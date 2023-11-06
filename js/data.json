@@ -23,5 +23,40 @@
 		"id": 5,
 		"name": "Name 10",
 		"value": 10
+	},
+	{
+		"id": 6,
+		"name": "Name 31",
+		"value": 0
+	},
+	{
+		"id": 7,
+		"name": "Name 32",
+		"value": 1
+	},
+	{
+		"id": 8,
+		"name": "Name 33",
+		"value": 20
+	},
+	{
+		"id": 9,
+		"name": "Name 34",
+		"value": 10
+	},
+	{
+		"id": 10,
+		"name": "Name 35",
+		"value": 0
+	},
+	{
+		"id": 11,
+		"name": "Name 36",
+		"value": 1
+	},
+	{
+		"id": 12,
+		"name": "Name 37",
+		"value": 20
 	}
 ]
