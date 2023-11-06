@@ -1,16 +1,11 @@
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+@charset "utf-8";
+// sCSS Document
+// Powered by foxartbox | info@foxartbox.com
 
-	&::after,
-	&::before {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 0;
-	}
-}
+// should be first
+@import "_vars";
 
-body {
-	background-color: green;
-}
+//@import "popup";
+
+// must be the last
+@import "custom";
