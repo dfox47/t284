@@ -33,6 +33,12 @@ body {
 		text-transform: uppercase;
 
 		td {
+			transition: $transition;
+
+			&:hover {
+				background-color: $c_hover;
+			}
+
 			&:nth-child(1) {
 				width: 100px;
 			}

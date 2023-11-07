@@ -24,23 +24,23 @@ const specialTable = () => {
 			if (sortData === lastSort) {
 				console.log('sorting by REVERSE')
 
-				dataJson = dataJson.reverse()
+				sortedJson = sortedJson.reverse()
 
-				updateTable()
+				updateTable(sortedJson)
 
 				return false
 			}
 
 			if (sortData === 'id') {
-				sortedJson = dataJson.sort((a, b) => {
+				sortedJson = sortedJson.sort((a, b) => {
 					return (a.id - b.id)
 				})
 			} else if (sortData === 'value') {
-				sortedJson = dataJson.sort((a, b) => {
+				sortedJson = sortedJson.sort((a, b) => {
 					return (a.value - b.value)
 				})
 			} else if (sortData === 'name') {
-				sortedJson = dataJson.sort((a, b) => collator.compare(a.name, b.name))
+				sortedJson = sortedJson.sort((a, b) => collator.compare(a.name, b.name))
 			}
 
 			console.log('sorting by | ', sortData)
@@ -57,9 +57,13 @@ const specialTable = () => {
 				return res.json()
 			})
 			.then((data) => {
+				// to store data locally and make fetch only once
 				dataJson = data
 
-				updateTable(dataJson)
+				// set default result
+				sortedJson = dataJson
+
+				updateTable(data)
 			})
 	}
 
@@ -130,12 +134,15 @@ const specialTable = () => {
 	const searchChange = () => {
 		let searchResult
 
-		const searchVal = $searchInput.value.toLowerCase()
-
+		// searching from locally stored data
 		searchResult = dataJson.filter((e) => {
-				return e.name.toLowerCase().indexOf(searchVal) > -1
+				return e.name.toLowerCase().indexOf($searchInput.value.toLowerCase()) > -1
 			}
 		)
+
+		// setting sorted data from search result
+		// to be able sort it later
+		sortedJson = searchResult
 
 		updateTable(searchResult)
 	}
